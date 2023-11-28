@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cart</title>
+    <!-- ... -->
+    <style>
+        body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        box-sizing: border-box;
+        }
+        #customalert {
+            visibility: hidden;
+            min-width: 250px;
+            color: #fff;
+            font-size: 14pt;
+            text-align: center;
+            border-radius: 2px;
+            padding: 20px;
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+        }
+
+        #customalert.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 3s;
+        }
+        #time-now {
+            font-size: 23px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 500;   
+        }
+        #body-cart {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #143163;
+            text-align: center;
+        }
+
+        #cart-list {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Giữa bảng */
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center; /* Căn giữa nội dung trong ô */
+        }
+
+        thead {
+            background-color: #143163;
+            color: white;
+        }
+
+        #cart-summary {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #checkout-button,
+        #close-button, #check-order, #cart-page {
+            cursor: pointer;
+            background-color: #143163;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 14px;
+        }
+        #close-button{
+            width: 10%;
+            margin-bottom: 10px;
+        }
+        #order-info {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #order-info h2{
+            text-align: center;
+        }
+
+        #order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: fixed; /* Giữa bảng */
+        }
+        #order {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Căn giữa nội dung trong #order */
+        }
+        #order-info img{
+            width: 100px;
+        }
+        @media only screen and (max-width: 600px) {
+
+            #body-cart {
+                padding: 5px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            #close-button {
+                width: 100%;
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 5px;
+                font-size: 12px;
+            }
+
+            #cart-summary {
+                padding: 5px;
+            }
+
+            #checkout-button, #check-order, #cart-page {
+                font-size: 10px;
+            }
+
+            #order-info {
+                padding: 5px;
+            }
+
+            #order-info h2 {
+                font-size: 16px;
+            }
+
+            #order-info img {
+                width: 60px;
+            }
+
+            #total-price {
+                display: block;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            #cart-list table {
+                width: 100%;
+            }
+
+            #cart-list img {
+                max-width: 100%; 
+                height: auto; 
+                display: block; 
+                margin: 0 auto; 
+            }
+
+            #order-info img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body id="body-cart" onload="showTimeNow()">
+    <div id="time-now"></div>
+    <h1>Giỏ Hàng</h1>
+    <div id="close-button" onclick="goToHomePage()">Trang chủ</div>
+    <div id="cart-div">
+        <div id="cart-list">
+            <table >
+                <thead>
+                    <tr>
+                        <th>Ảnh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    <!-- Dữ liệu sản phẩm trong giỏ hàng sẽ được thêm vào đây -->
+                </tbody>
+            </table>
+        </div>
+        <div id="cart-summary">
+            <p>Tổng số sản phẩm: <span id="total-items">0</span></p>
+            <p>Tổng tiền: <span id="total-price">0</span></p>
+            <button id="checkout-button" onclick="buy()">Đặt hàng</button>
+            <button id="check-order" onclick="displayOrderInfo()">Xem đơn hàng đã đặt</button>
+        </div>
+    </div>
+    
+
+    <div id="order-info" style="display: none">
+        <h2>Thông tin đơn hàng</h2>
+        <table id="order-items">
+            
+            <!-- Dữ liệu đơn hàng của khách hàng sẽ được hiển thị tại đây -->
+        </table>
+        <div id="order">
+            <button id="cart-page" onclick="goToCartPage()">Quay lại giỏ hàng</button>
+        </div>
+    </div>
+    <div id="customalert"></div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

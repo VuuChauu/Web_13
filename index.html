@@ -1,0 +1,257 @@
+	<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="athor" name="Phuoc Duong">
+	<meta content="discription" name="web_projeck">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ELEGANT WATCH STORE</title>
+	<link rel="shortcut icon" href="IMG/favicon.ico">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body onload="createProduct();showTimeNow();checklogin();showListPageProductStranger();showMenu();showProduct();">
+	<div id="time-now"></div>
+	<div id="header">
+		<div class="container">
+			<div class=" top_header">
+				<ul class="left">
+					<li>
+						<a href="https://www.facebook.com/">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li>
+						<a href="https://twitter.com/">
+							<i class="fa-brands fa-twitter"></i>
+						</a>
+					</li>
+				</ul>
+				<ul class="right">
+					<li id="search-btn" onclick="showSearchUser()">
+						<button>
+							<i class="fas fa-search"></i>
+						</button>
+					</li>
+					<li >
+						<button onclick="goToCartPage()" id="button-cart">
+							<i class="fa-solid fa-cart-shopping"></i>
+						</button>
+					</li>
+					<li>
+						<button onclick="showform()" id="button_login">
+							<i class="fa-solid fa-user"></i>
+						</button>
+					</li>
+				</ul>
+			</div>
+			<section id="user-page">
+				<div id="user-page-modal-product-detail"></div>
+					  <div id="user-page-product-detail"> </div> 
+					  
+				<div id="user-page-modal-search" >
+					<div id="user-page-search-wrapper">
+						  <button onclick="closeSearchUser()" id="user-page-closeSearch-btn"><i class="fa-solid fa-xmark"></i></button>
+						  <h2>Tìm Kiếm Sản Phẩm</h2><br>
+						  <span style="font-size: 20px;margin-right: 10px;"><i class="fa-solid fa-magnifying-glass"></i></span><input type="text" name="search-info" id="user-page-search-info" placeholder="Tìm kiếm" onkeyup="searchUser()">
+						  <input type="text" name="price-from" placeholder="Giá từ" id="user-page-search-price-from" onkeyup="searchUser()">
+						  <input type="text" name="price-to" placeholder="Đến" id="user-page-search-price-to" onkeyup="searchUser()">
+						  <div id="user-page-search-product-wrapper">
+						  </div>
+					</div>
+			  </div>
+			  </section>
+			<hr class="divider">
+			<div class="bot_header">
+				<a href="index.html"><img src="IMG/logo.png" alt="logo_web"></a>
+				<div><button id="btnmenu" onclick="showMenuMobile()">&#9776;</button></div>
+				<ul class="bot_header_menu">
+					<!-- js ở đây -->
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="user_modal">
+		<div id="login_modal">
+			<form id="login_wrapper">
+				<button onclick="closeUser()" class="close_login" type="button">&times;</button>
+				<h2>ĐĂNG NHẬP</h2>
+				<div class="login_container">
+					<div class="form-group">
+						<label for="usernameLogin"><b>Tài khoản</b></label>
+						<input type="text" placeholder="Nhập tên tài khoản" id="usernameLogin" name="usernameLogin">
+						<p class="error" id="username-login-error">Hãy nhập tên tài khoản</p>
+					</div>
+					<div class="form-group">
+						<label for="passwordLogin"><b>Mật khẩu</b></label>
+						<input type="password" placeholder="Nhập mật khẩu" id="passwordLogin" name="passwordLogin">
+						<p class="error" id="password-login-error">Hãy nhập mật khẩu</p>
+					</div>
+					<button class="submit_login" type="submit">Đăng nhập</button>
+
+				</div>
+				<p>Không có tài khoản? <a onclick="showsignup()" id="sign_up_button" type="button"
+						class="button_sign_up_in_login">Đăng kí</a></p>
+			</form>
+		</div>
+		<div id="sign_up_modal">
+			<form id="sign_up_wrapper">
+				<button onclick="closeUser()" class="close_sign_up" type="button"
+					title="close Model sign-up">&times;</button>
+				<h2>Đăng Ký</h2>
+				<div class="sign_up_container">
+					<div class="form-group">
+						<label for="name-sign-up"><b>Họ và tên</b></label>
+						<input type="text" name="name-sign-up" id="name-sign-up" placeholder="Nhập họ và tên của bạn">
+						<p class="error" id="name-sign-up-error">Họ và tên không hợp lệ</p>
+					</div>
+					<div class="form-group">
+						<label for="username-sign-up"><b>Tài khoản</b></label>
+						<input type="text" id="username-sign-up" name="username-sign-up"
+							placeholder="Nhập tài khoản của bạn">
+						<p class="error" id="username-sign-up-error">Tài khoản không hợp lệ</p>
+					</div>
+					<div class="form-group">
+						<label for="email-sigup"><b>Địa chỉ email</b></label>
+						<input type="text" name="email sign up" id="email-sigup" placeholder="Nhập email của bạn">
+						<p class="error" id="email-sign-up-error">Email không hợp lệ</p>
+					</div>
+					<div class="form-group">
+						<label for="password-sign-up"><b>Mật Khẩu</b></label>
+						<input type="password" name="password sign up" id="password-sign-up"
+							placeholder="Nhập mật khẩu của bạn">
+						<p class="error" id="password-sign-up-error">Mật khẩu không hợp lệ</p>
+					</div>
+					<div class="form-group">
+						<label for="confirm_password-sign-up"><b>Xác nhận mật khẩu</b></label>
+						<input type="password" name="confirm-password_sign-up" id="confirm_password-sign-up"
+							placeholder="Xác nhận lại mật khẩu">
+						<p class="error" id="password2-sign-up-error">Mật khẩu không hợp lệ</p>
+					</div>
+				</div>
+				<button type="submit" id="confirm_sign_up">Đăng ký</button>
+				<p>Trở về trang <a onclick="showlogin()">Đăng nhập</a></p>
+			</form>
+		</div>
+	</div>
+	<div id="modal-search">
+		<div id="search-wrapper">
+			<button onclick="closeSearch()" id="closeSearch-btn"><i class="fa-solid fa-xmark"></i></button>
+			<h2 >Tìm kiếm sản phẩm</h2><br>
+ 			<span style="font-size: 20px; margin-right: 10px;"><i class="fa-solid fa-magnifying-glass"></i></span><input type="text" name="search-info" id="search-info" placeholder="Tìm kiếm" onkeyup="searchStranger()">
+			<input type="text" name="price-from" placeholder="Giá từ" id="search-price-from" onkeyup="searchStranger()">
+			<input type="text" name="price-to" placeholder="Đến" id="search-price-to" onkeyup="searchStranger()">
+			<div id="search-product-wrapper">
+			</div>
+		</div>
+  </div>
+	<!-- <div id="background_header">Picture</div> -->
+	
+	
+	<div id="main">
+		<div class="container" id="maincontainer">
+			<div id="content">
+				<!-- JS ỏ đây -->
+			</div>
+			<div id="product_detail">
+				<div id="infomation" class="product-detail-container">
+					<!-- js ở đây -->
+				</div>
+			</div>
+			<div id="page_product">
+				<!-- JS ở đây -->
+			</div>
+		</div>
+	
+	</div>
+
+	<hr id="section_divider">
+
+	<div class="section_info_footer">
+		<div class="info_footer_container">
+			<div class="info_footer_column">
+				<h3>Mua Hàng - Phím 1</h3>
+				<p class="phone"><i class="fa-solid fa-phone"></i> 1900 0000</p>
+				<p>08:00 - 22:00 Tất cả các ngày trong tuần</p>
+			</div>
+			<div class="info_footer_column">
+				<h3>CSKH - Phím 2</h3>
+				<p class="phone"><i class="fa-solid fa-phone"></i> 1900 1111</p>
+				<p>Chúng tôi luôn ở đây để hỗ trợ bạn</p>
+			</div>
+			<div class="info_footer_column">
+				<h3>Kết nối với chúng tôi</h3>
+					<ul class="info">
+						<li>
+							<a href="https://www.facebook.com/">
+								<i class="fa-brands fa-facebook"></i>
+							</a>
+						</li>
+						<li>
+							<a href="https://www.instagram.com/">
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</li>
+						<li>
+							<a href="https://twitter.com/">
+								<i class="fa-brands fa-twitter"></i>
+							</a>
+						</li>
+					</ul>
+			</div>
+		</div>
+	</div>
+	
+
+	
+
+	<div id="footer">
+		<div class="footer_container">
+			<div class="footer_columns">
+				<div class="footer_column" id="logo">
+					<a href="index.html">
+						<img src="IMG/logo.png" alt="logo_web">
+					</a>
+				</div>
+				<div class="footer_column">
+					<h3>Về chúng tôi</h3>
+					<ul>
+						<li><a href="#">Giới thiệu</a></li>
+						<li><a href="#">Sứ mệnh của chúng tôi</a></li>
+						<li><a href="#">Tuyển dụng</a></li>
+					</ul>
+				</div>
+				<div class="footer_column">
+					<h3>Chăm sóc khách hàng</h3>
+					<ul>
+						<li><a href="#">Câu hỏi thường gặp</a></li>
+						<li><a href="#">Trung tâm trợ giúp</a></li>
+						<li><a href="#">Dịch vụ khách hàng</a></li>
+						<li><a href="#">Chính sách đổi trả</a></li>
+					</ul>
+				</div>
+				<div class="footer_column">
+					<h3>Liên hệ</h3>
+					<p><strong>Email:</strong> <span>info@yourwatchshop.com</span></p>
+					<p><strong>Hotline:</strong> <span>1900 2222 </span></p>
+					<p><strong>Địa chỉ:</strong> <span>273 An Dương Vương, P.3, Q.5, TP.Hồ Chí Minh</span></p>
+				</div>
+				
+			</div>
+			<div class="bottom_footer">
+				<p>&copy; 2023 Cửa hàng Đồng hồ. Đã đăng ký bản quyền.</p>
+			</div>
+		</div>
+	</div>
+	<div id="customalert"></div>
+	<script src="main.js"></script>
+</body>
+
+</html>
